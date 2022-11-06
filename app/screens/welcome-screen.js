@@ -6,13 +6,43 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Button
+  Linking
  } from 'react-native'
 
 const WelcomeScreen = (props) => {
+    
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const clearAndSubmit = (email, password) => {
+    setEmail('')
+    setPassword('')
+  }
+
+  const getGoogleOAuthURL = async () => {
+
+    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const options = {
+      redirect_uri: 'https://usat5wglha.execute-api.us-east-1.amazonaws.com/promos/oauth',
+      client_id: '587819817274-49gecl139ieio848n1i1hh9m8ri3ulic.apps.googleusercontent.com',
+      access_type: 'offline',
+      response_type: 'code',
+      prompt: 'consent',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+      ].join(" ")
+    }  
+    
+    const qs = new URLSearchParams(options)
+    console.log(qs)
+    
+    
+    const url = `${rootUrl}?${qs.toString()}`
+
+    await Linking.openURL(url)
+  }
 
   return (
       <View 
@@ -22,25 +52,29 @@ const WelcomeScreen = (props) => {
             style={styles.TextInput}
             placeholder="E-mail"
             placeholderTextColor="#003f5c"
-            onChangeText={(email) => setEmail(email)}
+            value={email}
+            onChangeText={setEmail}
           />
         </View>        
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
-            placeholder="Password"
+            clearButtonMode="always"
+            placeholder="Senha"
             placeholderTextColor="#003f5c"
             secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
         <TouchableOpacity>
-          <Text style={styles.forgot_button}>Forgot Password?</Text>
+          <Text style={styles.forgot_button}>Esqueci minha senha</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>LOGIN</Text>
+        <TouchableOpacity style={styles.loginBtn} onPress={(email,password) => clearAndSubmit(email, password)}>
+          <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
           <SocialIcon
+            onPress={getGoogleOAuthURL}
             style={styles.loginBtnGoogle}
             title='Login com Google'
             button
@@ -72,7 +106,10 @@ const styles = StyleSheet.create({
   },
   loginText: {
     flex: 1,
-    padding: 10,
+    padding: 15,
+    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: 15,
     textAlign:'center'
   },
   inputArea: {
@@ -95,6 +132,7 @@ const styles = StyleSheet.create({
  loginBtnGoogle: {
   width:"60%",
   textAlign: "center",
+  marginBottom: 20
 },
  logoGoogle: {
   position: 'absolute',
