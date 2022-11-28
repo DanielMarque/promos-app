@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { SocialIcon } from 'react-native-elements'
+import * as AuthSession from 'expo-auth-session'
+import * as WebBrowser from 'expo-web-browser';
 import {
   StyleSheet,
   TextInput,
@@ -33,15 +35,19 @@ const WelcomeScreen = (props) => {
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/userinfo.email'
       ].join(" ")
-    }  
+    }
+
+    // npx uri-scheme open "exp://127.0.0.1:19000" --android
     
-    const qs = new URLSearchParams(options)
-    console.log(qs)
-    
+    const qs = new URLSearchParams(options)    
     
     const url = `${rootUrl}?${qs.toString()}`
 
-    await Linking.openURL(url)
+    await WebBrowser.openBrowserAsync(url)
+    
+    Linking.addEventListener('url', (data)=> {
+      console.log('Data: ',data)
+    })
   }
 
   return (

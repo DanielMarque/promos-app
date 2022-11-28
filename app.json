@@ -2,12 +2,11 @@
   "expo": {
     "name": "promos-app",
     "slug": "promos-app",
+    "scheme": "promos-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,9 +20,25 @@
       "supportsTablet": true
     },
     "android": {
+      "intentFilters": [
+        {
+          "autoVerify": true,
+          "action": "VIEW",
+          "data": {
+            "scheme": "https",
+            "host": "*usat5wglha.execute-api.us-east-1.amazonaws.com*",
+            "pathPrefix": "/promos/oauth*"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "android.package"
     },
     "web": {
       "favicon": "./assets/favicon.png"
