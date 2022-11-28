@@ -21,33 +21,29 @@ const WelcomeScreen = (props) => {
     setPassword('')
   }
 
-  const getGoogleOAuthURL = async () => {
+  const handleGoogleSignIn = async () => {
+    try {
+      const CLIENT_ID = "587819817274-49gecl139ieio848n1i1hh9m8ri3ulic.apps.googleusercontent.com"
+      const REDIRECT_URI = "https://auth.expo.io/@daniel.cmarques/promos-app"
+      const SCOPE = encodeURI("profile email")
+      const RESPONSE_TYPE = "token"
 
-    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
-  
-    const options = {
-      redirect_uri: 'https://usat5wglha.execute-api.us-east-1.amazonaws.com/promos/oauth',
-      client_id: '587819817274-49gecl139ieio848n1i1hh9m8ri3ulic.apps.googleusercontent.com',
-      access_type: 'offline',
-      response_type: 'code',
-      prompt: 'consent',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-      ].join(" ")
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
+
+      WebBrowser.maybeCompleteAuthSession()
+
+      const {  
+        type,
+        params
+      } = await AuthSession.startAsync({
+        authUrl
+      })
+
+      console.log(type, params)
+
+    } catch (error) {
+      
     }
-
-    // npx uri-scheme open "exp://127.0.0.1:19000" --android
-    
-    const qs = new URLSearchParams(options)    
-    
-    const url = `${rootUrl}?${qs.toString()}`
-
-    await WebBrowser.openBrowserAsync(url)
-    
-    Linking.addEventListener('url', (data)=> {
-      console.log('Data: ',data)
-    })
   }
 
   return (
@@ -80,7 +76,7 @@ const WelcomeScreen = (props) => {
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
           <SocialIcon
-            onPress={getGoogleOAuthURL}
+            onPress={handleGoogleSignIn}
             style={styles.loginBtnGoogle}
             title='Login com Google'
             button
