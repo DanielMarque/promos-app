@@ -1,14 +1,12 @@
 import React, { useState } from "react"
 import { SocialIcon } from 'react-native-elements'
-import * as AuthSession from 'expo-auth-session'
-import * as WebBrowser from 'expo-web-browser';
+import handleGoogleSignIn from "../services/handle-google-sign-in"
 import {
   StyleSheet,
   TextInput,
   View,
   TouchableOpacity,
   Text,
-  Linking
  } from 'react-native'
 
 const WelcomeScreen = (props) => {
@@ -16,34 +14,9 @@ const WelcomeScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const clearAndSubmit = (email, password) => {
+  const clearEmailAndPassword = (email, password) => {
     setEmail('')
     setPassword('')
-  }
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const CLIENT_ID = "587819817274-49gecl139ieio848n1i1hh9m8ri3ulic.apps.googleusercontent.com"
-      const REDIRECT_URI = "https://auth.expo.io/@daniel.cmarques/promos-app"
-      const SCOPE = encodeURI("profile email")
-      const RESPONSE_TYPE = "token"
-
-      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
-
-      WebBrowser.maybeCompleteAuthSession()
-
-      const {  
-        type,
-        params
-      } = await AuthSession.startAsync({
-        authUrl
-      })
-
-      console.log(type, params)
-
-    } catch (error) {
-      
-    }
   }
 
   return (
@@ -72,7 +45,7 @@ const WelcomeScreen = (props) => {
         <TouchableOpacity>
           <Text style={styles.forgot_button}>Esqueci minha senha</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn} onPress={(email,password) => clearAndSubmit(email, password)}>
+        <TouchableOpacity style={styles.loginBtn} onPress={(email,password) => clearEmailAndPassword(email, password)}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
           <SocialIcon
