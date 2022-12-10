@@ -6,10 +6,14 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Text,
+  Text,  
  } from 'react-native'
 
-const WelcomeScreen = (props) => {
+ import Loading from './loading'
+
+const Login = ({ navigation }) => {
+
+  const [visible, setVisible] = useState(false)
     
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -48,8 +52,17 @@ const WelcomeScreen = (props) => {
         <TouchableOpacity style={styles.loginBtn} onPress={(email,password) => clearEmailAndPassword(email, password)}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
+          <Loading visible={visible}/>
           <SocialIcon
-            onPress={handleGoogleSignIn}
+            onPress={async () => { 
+              setVisible(true)
+              const result = await handleGoogleSignIn()
+              if(result){
+                navigation.navigate('Home')
+                setVisible(false)
+              }
+              console.log('Login Failed')
+            }}
             style={styles.loginBtnGoogle}
             title='Login com Google'
             button
@@ -114,4 +127,4 @@ const styles = StyleSheet.create({
  }
 })
 
-export default WelcomeScreen
+export default Login
