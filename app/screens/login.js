@@ -61,7 +61,6 @@ const Login = ({ navigation }) => {
                 navigation.navigate('Home')
                 setVisible(false)
               }
-              console.log('Login Failed')
             }}
             style={styles.loginBtnGoogle}
             title='Login com Google'
