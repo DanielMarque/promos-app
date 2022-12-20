@@ -1,17 +1,27 @@
 import {
     View,
     StyleSheet,
-    StatusBar
+    StatusBar,
+    TouchableOpacity,
    } from 'react-native'
 import SearchBar from './search-bar'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-const Home = ({navigation}) => {
+const Home = () => {
+
+    const nav = useNavigation()
+
     return(
         <View>          
             <View style={styles.container}>
-                <SearchBar/>                
-                <Ionicons style={styles.hamburguer} name="md-menu" size={38} color="black"/>
+                <SearchBar/>
+                <TouchableOpacity onPress={() => {
+                    console.log(nav)
+                    nav.openDrawer()
+                }}>
+                    <Ionicons style={styles.hamburguer} name="md-menu" size={38} color="black"/>
+                </TouchableOpacity>
             </View>
             {/* <View style={styles.hamburguer}>
             </View> */}
