@@ -3,25 +3,24 @@ import {
     StyleSheet,
     StatusBar,
     TouchableOpacity,
-   } from 'react-native'
+} from 'react-native'
 import SearchBar from './search-bar'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import List from './list';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
 
-    return(
-        <View>          
+    return (
+        <View>
             <View style={styles.container}>
-                <SearchBar/>
+                <SearchBar />
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Ionicons style={styles.hamburguer} name="md-menu" size={38} color="black"/>
+                    <Ionicons style={styles.hamburguer} name="md-menu" size={38} color="black" />
                 </TouchableOpacity>
             </View>
-            {/* <View style={styles.hamburguer}>
-            </View> */}
-            {/* <View style={styles.menu}>
-                <Button onPress={() => navigation.navigate('Login')} title="Voltar"/>        
-            </View> */}
+            <View>
+                <List />
+            </View>
         </View>
     )
 }
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginTop: 5,
         width: '100%',
-      }
+    }
 })
 
 export default Home

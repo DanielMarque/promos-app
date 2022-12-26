@@ -19,7 +19,8 @@ const DrawerMenu = () => {
           headerShown: false,
           drawerItemStyle: { height: 0 }
         }}/>
-      <Drawer.Screen name="Settings" component={Settings}/>
+      <Drawer.Screen name="Configurações" component={Settings}/>
+      <Drawer.Screen name="Sair" component={Settings}/>
     </Drawer.Navigator>
   )
 }
