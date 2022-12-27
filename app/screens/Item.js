@@ -25,20 +25,22 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         width: '44%',
         margin: 12,
-        marginBottom: 30,
+        marginBottom: 35,
         alignItems: 'center',
     },
     image: {
         width: 150,
         height: 150,
         borderRadius: 5,
+        opacity: 1000,
+        shadowOpacity: 5
     },
     text: {
         textAlign: 'center',
-        fontSize: 20,
-        marginTop: -85,
-        fontWeight: '500',
-        color: '#faf7f9',
+        fontSize: 26,
+        marginTop: -90,
+        fontFamily: 'Righteous-Regular',
+        color: 'white',
     }
 })
 
