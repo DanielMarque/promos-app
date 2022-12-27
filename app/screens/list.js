@@ -3,10 +3,6 @@ import Item from './Item'
 import items from '../mocks/data'
 
 const List = () => {
-
-    console.log('cHamou')
-    console.log(Item)
-
     return (
         <SafeAreaView>
             <FlatList

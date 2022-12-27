@@ -6,15 +6,15 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Text,  
- } from 'react-native'
+  Text,
+} from 'react-native'
 
- import Loading from './loading'
+import Loading from './loading'
 
 const Login = ({ navigation }) => {
 
   const [visible, setVisible] = useState(false)
-    
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -24,51 +24,51 @@ const Login = ({ navigation }) => {
   }
 
   return (
-      <View 
+    <View
       style={styles.background}>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="E-mail"
-            placeholderTextColor="#003f5c"
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>        
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            clearButtonMode="always"
-            placeholder="Senha"
-            placeholderTextColor="#003f5c"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
-        </View>
-        <TouchableOpacity>
-          <Text style={styles.forgot_button}>Esqueci minha senha</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn} onPress={(email,password) => clearEmailAndPassword(email, password)}>
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
-          <Loading visible={visible}/>
-          <SocialIcon
-            onPress={async () => { 
-              setVisible(true)
-              const result = await handleGoogleSignIn()
-              if(result){
-                navigation.navigate('Home')
-                setVisible(false)
-              }
-            }}
-            style={styles.loginBtnGoogle}
-            title='Login com Google'
-            button
-            dark
-            type='google'
-          />
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="E-mail"
+          placeholderTextColor="#003f5c"
+          value={email}
+          onChangeText={setEmail}
+        />
       </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          clearButtonMode="always"
+          placeholder="Senha"
+          placeholderTextColor="#003f5c"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
+      <TouchableOpacity>
+        <Text style={styles.forgot_button}>Esqueci minha senha</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginBtn} onPress={(email, password) => clearEmailAndPassword(email, password)}>
+        <Text style={styles.loginText}>Login</Text>
+      </TouchableOpacity>
+      <Loading visible={visible} />
+      <SocialIcon
+        onPress={async () => {
+          setVisible(true)
+          const result = await handleGoogleSignIn()
+          if (result) {
+            navigation.navigate('Home')
+            setVisible(false)
+          }
+        }}
+        style={styles.loginBtnGoogle}
+        title='Login com Google'
+        button
+        dark
+        type='google'
+      />
+    </View>
   )
 }
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 45,
     marginBottom: 20,
-  },  
+  },
   TextInput: {
     height: 50,
     flex: 1,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     fontSize: 15,
-    textAlign:'center'
+    textAlign: 'center'
   },
   inputArea: {
     width: '80%',
@@ -108,22 +108,22 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginBtn: {
-   width:"60%",
-   borderRadius:25,
-   height:50,
-   alignItems:"center",
-   justifyContent:"center",
-   backgroundColor:"#FF1493",
-   marginBottom: 20
- },
- loginBtnGoogle: {
-  width:"60%",
-  textAlign: "center",
-  marginBottom: 20
-},
- logoGoogle: {
-  position: 'absolute',
- }
+    width: "60%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FF1493",
+    marginBottom: 20
+  },
+  loginBtnGoogle: {
+    width: "60%",
+    textAlign: "center",
+    marginBottom: 20
+  },
+  logoGoogle: {
+    position: 'absolute',
+  }
 })
 
 export default Login

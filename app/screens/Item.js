@@ -12,7 +12,7 @@ const Item = (props) => {
     return (
         <View style={styles.imageContainer} >
             <Image style={styles.image}
-                source={require('../assets/bag-food.jpg')} />
+                source={require('../assets/frutas.jpeg')} />
             <ImageBackground>
                 <Text style={styles.text} >{name}</Text>
             </ImageBackground>
@@ -23,24 +23,22 @@ const Item = (props) => {
 const styles = StyleSheet.create({
     imageContainer: {
         flexDirection: 'column',
-        flex: 1,
         width: '44%',
         margin: 12,
+        marginBottom: 30,
         alignItems: 'center',
     },
     image: {
         width: 150,
         height: 150,
         borderRadius: 5,
-        opacity: 0.8,
-        shadowOpacity: 0.4
     },
     text: {
         textAlign: 'center',
         fontSize: 20,
         marginTop: -85,
         fontWeight: '500',
-        color: 'white',
+        color: '#faf7f9',
     }
 })
 
